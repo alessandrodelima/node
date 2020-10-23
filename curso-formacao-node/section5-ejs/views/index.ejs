@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia perguntas</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <h1>Guia perguntas</h1>
+
+  <!-- <%= %> Exibir valor da variável -->
+
+  <p>Nome: <%= nome %></p>
+  <p>Linguagem favorita: <%= lang %></p>
+  <p>Empresa: <%= empresa %></p>
+  <p>Inscritos: <%= inscritos %></p>
+
+  <% if(!msg == true) { %>
+    <h3>Isso é uma msg de erro!</h3>
+  <% } else {%>
+  <h3>Nenhum erro!</h3>
+  <%}%>
+
+    <ul>
+     <% produtos.forEach(function(produto) {%>
+      <li> 
+        <p><b><%= produto.nome%></b> R$ <%= produto.preco%></p>
+      </li>
+      <% }) %>
+    </li>
+    </ul>
+    <br>
+    <img src="/img/nodejs.jpg" width="150px"/>
+</body>
+</html>
