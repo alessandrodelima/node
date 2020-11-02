@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const connection = require("./database/database");
 const Pergunta = require("./database/Pergunta");
+const Resposta = require("./database/Resposta");
 
 
 connection
@@ -23,10 +24,14 @@ app.use(bodyParser.json());
 
 //routers
 app.get("/", (req, res) => {
-  Pergunta.findAll({ raw: true }).then(perguntas => {
-    console.log(perguntas);
+  Pergunta.findAll({ raw: true, order: [
+    ['id', 'DESC']
+  ]}).then(perguntas => {
+    res.render("index", {
+      perguntas: perguntas
+    });
+    //console.log(perguntas);
   });
-  res.render("index");
 });
 
 app.get("/perguntar", (req, res) => {
@@ -45,6 +50,21 @@ app.post("/saveQuestions", (req, res) => {
     res.redirect("/");
   });
 });
+
+app.get("/pergunta/:id", (req, res) => {
+  let id = req.params.id;
+  Pergunta.findOne({
+    where: {id: id}
+  }).then(pergunta => {
+    if(pergunta != undefined) { // Pergunta achada
+      res.render("pergunta", {
+        pergunta: pergunta
+      });
+    }else { // pergunta não encontrada.
+      res.redirect("/");
+    }
+  })
+})
 
 app.listen(port, () => {
   console.log("App running! Porta:", port);

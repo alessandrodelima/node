@@ -1,0 +1,22 @@
+<%- include('partials/header.ejs'); %>
+<body>
+  <%- include('partials/navbar'); %>
+  
+  <div class="container">
+    <br>
+      <hr>
+      <h1><%= pergunta.titulo %></h1>
+      <p><%= pergunta.descricao %></p>
+      <hr>
+      <form>
+        <div class="form-group">
+          <h3>Responda</h3>
+          <label for="">Resposta:</label>
+          <textarea class="form-control" rows="3" name="corpo" placeholder="Digite sua resposta."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Responder</button>
+      </form>
+  </div>
+
+</body>
+<%- include('partials/footer.ejs'); %>

@@ -5,3 +5,9 @@ body{
 #formulario-pergunta {
   margin-top: 5vh;
 }
+
+.container {
+  background-color: #fff;
+  margin-top: 15px;
+  padding: 20px;
+}
