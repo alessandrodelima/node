@@ -55,16 +55,37 @@ app.get("/pergunta/:id", (req, res) => {
   let id = req.params.id;
   Pergunta.findOne({
     where: {id: id}
+
   }).then(pergunta => {
     if(pergunta != undefined) { // Pergunta achada
-      res.render("pergunta", {
-        pergunta: pergunta
+      Resposta.findAll({
+        where: {perguntaId: pergunta.id},
+        order: [
+          ['id', 'DESC']
+        ]
+      }).then(respostas => {
+        res.render("pergunta", {
+        pergunta: pergunta,
+        respostas: respostas
       });
+    });
+
     }else { // pergunta não encontrada.
       res.redirect("/");
     }
-  })
-})
+  });
+});
+
+app.post("/responder", (req, res) => {
+  let corpo = req.body.corpo;
+  let perguntaId = req.body.pergunta;
+  Resposta.create({
+    corpo: corpo,
+    perguntaId: perguntaId
+  }).then(() => {
+    res.redirect("/pergunta/"+perguntaId); //res.redirect("/pergunta/")
+  });
+});
 
 app.listen(port, () => {
   console.log("App running! Porta:", port);
